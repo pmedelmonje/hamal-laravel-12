@@ -47,10 +47,10 @@
                                     <x-dropdown-link :href="route('projects-dashboard.index')" :active="request()->routeIs('projects-dashboard.index')">
                                         Proyectos
                                     </x-dropdown-link>
-                                    {{-- <x-dropdown-link :href="route('post-categories-dashboard.index')" :active="request()->routeIs('post-categories-dashboard.index')">
+                                    <x-dropdown-link :href="route('blog-categories-dashboard.index')" :active="request()->routeIs('blog-categories-dashboard.index')">
                                         Categorías de Posts
                                     </x-dropdown-link>
-                                    <x-dropdown-link :href="route('posts-dashboard.index')" :active="request()->routeIs('posts-dashboard.index')">
+                                    {{-- <x-dropdown-link :href="route('posts-dashboard.index')" :active="request()->routeIs('posts-dashboard.index')">
                                         Posts
                                     </x-dropdown-link> --}}
                                 </div>
@@ -128,6 +128,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('projects-dashboard.index')" :active="request()->routeIs('projects-dashboard.index')">
                 Proyectos
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('blog-categories-dashboard.index')" :active="request()->routeIs('blog-categories-dashboard.index')">
+                Categorías de Posts
             </x-responsive-nav-link>
         </div>
 

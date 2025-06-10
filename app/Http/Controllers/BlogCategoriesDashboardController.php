@@ -31,7 +31,7 @@ class BlogCategoriesDashboardController extends Controller
         $newBlogCategory = BlogCategory::create($validated);
         
         return redirect()->route('blog-categories-dashboard.index')
-        ->with('success', 'Tipo de registro creado exitosamente.');
+        ->with('success', 'Categoría de posts creada exitosamente.');
     }
 
     public function show(Request $request, $slug)
@@ -64,7 +64,7 @@ class BlogCategoriesDashboardController extends Controller
         $blogCategory->save();
 
         return redirect()->route('blog-categories-dashboard.index')
-        ->with('success', 'Tipo de registro actualizado.');
+        ->with('success', 'Categoría de Posts actualizada');
     }
 
     public function destroy(Request $request, $slug)
@@ -73,6 +73,7 @@ class BlogCategoriesDashboardController extends Controller
 
         $blogCategory->delete();
 
-        return redirect()->route('blog-categories-dashboard.index')->with('info', 'Tipo de registro eliminado');
+        return redirect()->route('blog-categories-dashboard.index')
+        ->with('info', 'Categoría eliminada');
     }
 }

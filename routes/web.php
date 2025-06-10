@@ -17,9 +17,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::prefix('proyectos')
 ->name('projects.')
 ->group(function () {
-    Route::get('/proyectos', [ProjectsController::class, 'index'])->name('projects.index');
-    Route::get('/proyectos/por-tipo/{slug}', [ProjectsController::class, 'filtered_projects'])->name('projects.filtered_projects');
-    Route::get('/proyectos/{slug}', [ProjectsController::class, 'show'])->name('projects.projects-show');
+    Route::get('/proyectos', [ProjectsController::class, 'index'])->name('index');
+    Route::get('/proyectos/por-tipo/{slug}', [ProjectsController::class, 'filtered_projects'])->name('filtered_projects');
+    Route::get('/proyectos/{slug}', [ProjectsController::class, 'show'])->name('projects-show');
 });
 
 Route::prefix('blog')
@@ -33,9 +33,9 @@ Route::prefix('blog')
 Route::prefix('contacto')
 ->name('contact.')
 ->group(function (){
-    Route::get('/contacto', [ContactController::class, 'index'])->name('contact.index');
-    Route::post('/contacto', [ContactController::class, 'store'])->name('contact.store');
-    Route::get('/contacto/contacto-exitoso', [ContactController::class, 'success'])->name('contact.success');
+    Route::get('/contacto', [ContactController::class, 'index'])->name('index');
+    Route::post('/contacto', [ContactController::class, 'store'])->name('store');
+    Route::get('/contacto/contacto-exitoso', [ContactController::class, 'success'])->name('success');
 });
 
 // Rutas del dashboard
