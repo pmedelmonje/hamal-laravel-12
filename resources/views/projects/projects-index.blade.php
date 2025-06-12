@@ -39,7 +39,7 @@
             </div>
 
             <!-- Grid de proyectos -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach ($projects as $project)
                 <div class="group">
                     <a href="{{ route('projects.projects-show', $project->slug) }}" class="block h-full">
@@ -67,10 +67,10 @@
                                     </div> --}}
                                 @endif
                                 
-                                @if($project->project_type)
+                                @if($project->projectType)
                                 <div class="absolute top-3 left-3">
-                                    <span class="px-2 py-1 text-xs rounded-full bg-star-orange text-night-dark font-mono">
-                                        {{ $project->project_type->name }}
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-star-cyan text-slate-900 font-mono">
+                                        {{ $project->projectType->name }}
                                     </span>
                                 </div>
                                 @endif
@@ -78,13 +78,13 @@
                             
                             <!-- Contenido -->
                             <div class="p-6 flex-1 flex flex-col">
-                                <h4 class="text-star-cyan text-center text-xl font-semibold mb-3 group-hover:text-star-cyan-light transition-colors duration-300">
+                                <h4 class="text-star-cyan text-center text-md font-semibold mb-3 group-hover:text-star-cyan-light transition-colors duration-300">
                                     {{ $project->name }}
                                 </h4>
                                 
                                 <div class="w-full h-px bg-gradient-to-r from-transparent via-star-cyan to-transparent mb-4"></div>
                                 
-                                <p class="text-star-white-light text-center flex-1 mb-4 leading-relaxed">
+                                <p class="text-star-white-light text-sm text-center flex-1 mb-4 leading-relaxed">
                                     {{ $project->short_description }}
                                 </p>
 

@@ -4,8 +4,8 @@
 
 @section('content')
     <section class="py-12 bg-night-dark">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col lg:flex-row gap-8">
+        <div class="container mx-auto px-2">
+            <div class="flex flex-col lg:flex-row gap-4">
                 <!-- Panel lateral izquierdo - Categorías -->
                 <div class="lg:w-1/4">
                     <div class="bg-night-grey rounded-lg p-6 border border-star-orange/30 sticky top-8">

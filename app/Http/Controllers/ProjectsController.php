@@ -11,7 +11,7 @@ class ProjectsController extends Controller
     public function index(Request $request)
     {
         $project_types = ProjectType::all();
-        $projects = Project::paginate(2);
+        $projects = Project::paginate(6);
 
         return view('projects.projects-index', [
             'title' => 'Proyectos | Pedro Medel M.',
@@ -26,7 +26,8 @@ class ProjectsController extends Controller
     {
         $project_types = ProjectType::all();
         $filtered_project_type = ProjectType::where('slug', $slug)->first();
-        $projects = Project::where('project_type_id', $filtered_project_type->id)->paginate(2);
+        $projects = Project::where('project_type_id', $filtered_project_type->id)
+        ->paginate(6);
 
         return view('projects.projects-index', [
             'title' => 'Proyectos | Pedro Medel M.',
