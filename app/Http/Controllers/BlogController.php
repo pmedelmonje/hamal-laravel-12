@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
+use Illuminate\Support\Str;
 
 
 class BlogController extends Controller
@@ -14,7 +15,7 @@ class BlogController extends Controller
         $posts = BlogPost::with('categories')
         ->where('published', true)
         ->latest()
-        ->paginate(10);
+        ->paginate(6);
 
         $recentPosts = BlogPost::with('categories')
         ->latest()
@@ -30,7 +31,7 @@ class BlogController extends Controller
         return view('blog.blog-index', [
             'title' => 'Blog',
             'hero_title' => 'Blog',
-            'hero_subtitle' => 'Artículos, tutoriales y reflexiones sobre desarrollo web, programación y tecnología.',
+            'hero_subtitle' => 'Mostrando todas las entradas',
             'categories' => $categories,
             'posts' => $posts,
             'recentPosts' => $recentPosts,
@@ -39,9 +40,10 @@ class BlogController extends Controller
 
     public function show(Request $request, $slug)
     {
-        $post = BlogPost::where('slug', $slug)->first();
-
-        $post->increment('visits_count');
+        $post = BlogPost::where('slug', $slug)->firstOrFail();
+        $post->visits_count ++;
+        $post->save();
+        // $post->refresh();
 
         $categories = BlogCategory::withCount(['posts' => function($query) {
                         $query->where('published', true);
@@ -72,9 +74,9 @@ class BlogController extends Controller
     {
         // Obtener posts de la categoría
 
-        $category = BlogCategory::where('slug', $slug)->first();
+        $currentCategory = BlogCategory::where('slug', $slug)->firstOrFail();
 
-        $posts = $category->posts()
+        $posts = $currentCategory->posts()
                     ->where('published', true)
                     ->with(['categories'])
                     ->latest()
@@ -97,9 +99,9 @@ class BlogController extends Controller
             'posts' => $posts, 
             'categories' => $categories, 
             'recentPosts' => $recentPosts, 
-            'category' => $category,
-            'hero_title' => $category->name,
-            'hero_subtitle' => ''
+            'currentCategory' => $currentCategory,
+            'hero_title' => $currentCategory->name,
+            'hero_subtitle' => 'Mostrando los posts de la categoría seleccionada'
         ]);
     }
 }

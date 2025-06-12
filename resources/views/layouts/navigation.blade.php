@@ -50,9 +50,9 @@
                                     <x-dropdown-link :href="route('blog-categories-dashboard.index')" :active="request()->routeIs('blog-categories-dashboard.index')">
                                         Categorías de Posts
                                     </x-dropdown-link>
-                                    {{-- <x-dropdown-link :href="route('posts-dashboard.index')" :active="request()->routeIs('posts-dashboard.index')">
+                                    <x-dropdown-link :href="route('blog-posts-dashboard.index')" :active="request()->routeIs('blog-posts-dashboard.index')">
                                         Posts
-                                    </x-dropdown-link> --}}
+                                    </x-dropdown-link>
                                 </div>
                             </x-slot>
                         </x-dropdown>
@@ -131,6 +131,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('blog-categories-dashboard.index')" :active="request()->routeIs('blog-categories-dashboard.index')">
                 Categorías de Posts
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('blog-posts-dashboard.index')" :active="request()->routeIs('blog-posts-dashboard.index')">
+                Posts
             </x-responsive-nav-link>
         </div>
 
