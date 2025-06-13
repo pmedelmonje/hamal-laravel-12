@@ -53,6 +53,9 @@
                                     <x-dropdown-link :href="route('blog-posts-dashboard.index')" :active="request()->routeIs('blog-posts-dashboard.index')">
                                         Posts
                                     </x-dropdown-link>
+                                    <x-dropdown-link :href="route('contacts-dashboard.index')" :active="request()->routeIs('contacts-dashboard.index')">
+                                        Contactos
+                                    </x-dropdown-link>
                                 </div>
                             </x-slot>
                         </x-dropdown>

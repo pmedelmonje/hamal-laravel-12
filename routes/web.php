@@ -57,4 +57,5 @@ require __DIR__.'/skill_groups_dashboard.php';
 require __DIR__.'/skills_dashboard.php';
 require __DIR__.'/blog_categories_dashboard.php';
 require __DIR__.'/blog_posts_dashboard.php';
+require __DIR__.'/contacts_dashboard.php';
 

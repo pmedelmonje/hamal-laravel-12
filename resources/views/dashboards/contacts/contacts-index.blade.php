@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Proyectos
+            Contactos
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-night-light overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    
+
                     @if (@session('success'))
                         <x-alert type="success">
                             <x-slot name="title">
@@ -28,26 +28,19 @@
                         </x-alert>
                     @endif
 
-                    <!-- Filtros y botón de crear -->
+                    <!-- Filtros -->
                     <div class="flex justify-between items-center mb-6">
-                        <form method="GET" action="{{ route('projects-dashboard.index') }}"
+                        <form method="GET" action="{{ route('contacts-dashboard.index') }}"
                             class="flex items-center gap-4">
-                            <select name="type" onchange="this.form.submit()"
+                            <select name="is_answered" onchange="this.form.submit()"
                                 class="border-gray-300 dark:border-gray-700 dark:bg-night-grey dark:text-gray-300 focus:border-star-cyan focus:ring-star-cyan rounded-md shadow-sm">
-                                <option value="">Todos los tipos</option>
-                                @foreach ($projectTypes as $type)
-                                    <option value="{{ $type->id }}"
-                                        {{ $selectedType == $type->id ? 'selected' : '' }}>
-                                        {{ $type->name }}
-                                    </option>
-                                @endforeach
+                                <option value="">Todos los estados</option>
+                                <option value="1" {{ request('is_answered') === '1' ? 'selected' : '' }}>
+                                    Respondidos</option>
+                                <option value="0" {{ request('is_answered') === '0' ? 'selected' : '' }}>No
+                                    respondidos</option>
                             </select>
                         </form>
-
-                        <a href="{{ route('projects-dashboard.create') }}"
-                            class="inline-flex items-center px-4 py-1 bg-star-cyan border border-transparent rounded-md text-night-dark-blue hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">
-                            Nuevo
-                        </a>
                     </div>
 
                     <!-- Tabla de proyectos -->
@@ -61,11 +54,11 @@
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 w-1/5 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                        Slug
+                                        Email
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 w-1/5 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                        Tipo
+                                        Respondido
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 w-1/5 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -74,35 +67,33 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-night-light divide-y divide-gray-200 dark:divide-gray-700">
-                                @forelse($projects as $project)
+                                @forelse($contacts as $contact)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
-                                                {{ $project->name }}
-                                            </div>
-                                            <div class="text-xs text-gray-500 dark:text-gray-400">
-                                                {{ Str::limit($project->short_description, 50) }}
+                                                {{ $contact->name }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
-                                                {{ $project->slug }}
+                                                {{ $contact->email }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span
                                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-star-cyan text-night-dark-blue">
-                                                {{ $project->projectType->name }}
+                                                {{ $contact->is_answered ? 'Sí' : 'No' }}
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="{{ route('projects-dashboard.show', $project->slug) }}"
-                                                class="text-sky-600 hover:text-sky-400 mr-3">Editar</a>
-                                            <form action="{{ route('projects-dashboard.create', $project->slug) }}" method="POST" class="inline">
+                                            <a href="{{ route('contacts-dashboard.show', $contact->id) }}"
+                                                class="text-sky-600 hover:text-sky-400 mr-3">Ver</a>
+                                            <form action="{{ route('contacts-dashboard.destroy', $contact->id) }}"
+                                                method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-700 hover:text-red-300"
-                                                    onclick="return confirm('¿Realmente quieres eliminar este proyecto?')">Eliminar</button>
+                                                    onclick="return confirm('¿Realmente quieres eliminar este contacto?')">Eliminar</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -110,7 +101,7 @@
                                     <tr>
                                         <td colspan="5"
                                             class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                                            No se encontraron proyectos
+                                            No se encontraron registros
                                         </td>
                                     </tr>
                                 @endforelse
@@ -120,7 +111,7 @@
 
                     <!-- Paginación -->
                     <div class="mt-4">
-                        {{ $projects->links() }}
+                        {{ $contacts->links() }}
                     </div>
                 </div>
             </div>

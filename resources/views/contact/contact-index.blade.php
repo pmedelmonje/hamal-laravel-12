@@ -5,44 +5,6 @@
 @section('content')
     <section class="py-12 bg-night-dark">
         <div class="container mx-auto px-4">
-            <!-- Alertas -->
-            @if (session('status'))
-                <div class="flex justify-center mb-8">
-                    <div class="w-full max-w-2xl">
-                        <div class="bg-star-cyan/20 text-star-cyan border border-star-cyan/30 rounded-lg px-4 py-3 relative"
-                            role="alert">
-                            <p>{{ session('status') }}</p>
-                            <button type="button" class="absolute top-3 right-3 text-star-cyan hover:text-star-cyan-light"
-                                aria-label="Close">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="flex justify-center mb-8">
-                    <div class="w-full max-w-2xl">
-                        <div class="bg-star-orange/20 text-star-orange border border-star-orange/30 rounded-lg px-4 py-3 relative"
-                            role="alert">
-                            <p class="font-bold">Hay errores en el formulario.</p>
-                            <p>Revise los errores y vuelva a intentar.</p>
-                            <button type="button"
-                                class="absolute top-3 right-3 text-star-orange hover:text-star-orange-light"
-                                aria-label="Close">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            @endif
 
             <div class="flex flex-col md:flex-row gap-8">
                 <!-- Información de contacto -->
@@ -89,7 +51,8 @@
                                 <span>+56 9 1234 5678</span>
                             </li> --}}
                             <li class="flex items-start space-x-3">
-                                <span><a href="{{ asset('uploads/cv_pmedel.pdf') }}" target="_blank"><i class="fa-regular fa-file-pdf text-star-cyan mr-2"></i>Descargar PDF</a></span>
+                                <span><a href="{{ asset('uploads/cv_pmedel.pdf') }}" target="_blank"><i
+                                            class="fa-regular fa-file-pdf text-star-cyan mr-2"></i>Descargar PDF</a></span>
                             </li>
                         </ul>
                     </div>
@@ -97,6 +60,25 @@
 
                 <!-- Formulario -->
                 <div class="md:w-2/3 px-4">
+
+                    <!-- Alertas -->
+                    @if (@session('success'))
+                        <x-alert type="success">
+                            <x-slot name="title">
+                                Información.
+                            </x-slot>
+                            {{ session('success') }}
+                        </x-alert>
+                    @endif
+
+                    @if ($errors->any())
+                        <x-alert type="danger">
+                            <x-slot name="title">
+                                Hay errores en el formulario.
+                            </x-slot>
+                            Corrija los errores y vuelva a intentar
+                        </x-alert>
+                    @endif
                     <h4 class="title-star-white text-2xl mb-4">Formulario de contacto</h4>
                     <div class="flex items-center justify-center py-2">
                         <div class="w-full border-t border-star-cyan/30"></div>
@@ -140,11 +122,10 @@
 
                         <!-- Botón de envío -->
                         <div>
-                            <button type="button" onclick="confirmForm('¿Enviar el formulario de contacro?')"
+                            <button type="button" onclick="confirmForm('¿Enviar el formulario de contacto?')"
                                 class="px-6 py-3 bg-star-cyan text-night-light rounded-lg font-medium hover:bg-star-cyan-light hover:shadow-glow-cyan transition-all duration-300">
                                 Enviar mensaje
-                                <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
                                 </svg>
@@ -178,7 +159,7 @@
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById('confirmForm').submit();
+                    document.getElementById('contactForm').submit();
                 }
             });
         }

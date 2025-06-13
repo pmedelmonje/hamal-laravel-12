@@ -36,6 +36,6 @@ class ContactController extends Controller
         $new_contact = Contact::create($data);
 
         return redirect()->route('contact.index')
-        ->with('status', 'Formulario ingresado correctamente');
+        ->with('success', 'Formulario ingresado correctamente');
     }
 }

@@ -131,7 +131,7 @@ class ProjectsDashboardController extends Controller
 
         $project->update($validated);
 
-        return redirect()->route('projects-dashboard.show', $project->slug)
+        return redirect()->route('projects-dashboard.index')
             ->with('success', "Proyecto actualizado exitosamente");
     }
 
